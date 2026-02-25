@@ -117,6 +117,29 @@ openclaw pairing approve telegram YOUR_CODE
 
 ------------------------------------------------------------------------
 
+# Urgent Email Summary
+
+1. Install google cloud SDK
+``` bash
+curl https://sdk.cloud.google.com | bash
+source ~/.zshrc
+gcloud auth login
+```
+
+2. Setup hooks
+```
+gcloud config set project your-project-id-12345
+gcloud services enable gmail.googleapis.com pubsub.googleapis.com
+```
+3. install tailscale and connected to the device
+4. OAuth setup in google cloud
+5. gog authentication
+6. Webhook setup
+```
+openclaw webhooks gmail setup --account your@gmail.com
+```
+------------------------------------------------------------------------
+
 # 🖥️ Web UI Dashboard Screenshots
 
 Open anytime:
