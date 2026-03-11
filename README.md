@@ -9,6 +9,13 @@ high-performance access to your local system, calendar, and files ---
 controlled entirely via Telegram.
 
 ------------------------------------------------------------------------
+# 🧠 System Architecture Overview
+
+<p align="center">
+  <img src="docs/architecture.png" width="900" />
+</p>
+
+------------------------------------------------------------------------
 
 # 📋 Prerequisites
 
@@ -227,3 +234,36 @@ openclaw gateway status
 ```
 
 If running, your assistant is live and ready.
+
+
+------------------------------------------------------------------------
+
+# ✅ Setup : “Urgent Email Summary” (scan → classify → summarize top 5 → highlight deadlines) and deliver it to Telegram
+
+-  Go to Cron Jobs to the gateway dashboard
+-  put the following values in the New Job form :
+  * Name: Urgent Email Summary
+
+  * Description: Daily morning scan and summary of unread emails
+
+  * Agent ID: default (unless you have a specific agent for emails)
+
+  * Enabled: [x] (Keep this checked).
+
+  * Schedule: Change "Every" to Cron (if available in that dropdown)
+
+  * Expression: 0 7 * * * . it indicate 7am
+
+  * Wake mode: Keep as Now
+
+  * Payload: Keep as Agent turn
+
+  * Agent Message: Paste your prompt here:
+
+  "Run urgent-email-summary now. Scan recent unread emails (last 24h), classify, summarize top 5, highlight deadlines. Use the exact output format."
+
+  * Delivery: Set to Announce summary (default)
+
+  * Channel: Type telegram
+
+  * To: Paste your chat ID "Telegram chat ID"
