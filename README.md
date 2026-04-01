@@ -308,7 +308,9 @@ If running, your assistant is live and ready.
 --cron "*/10 * * * *" \
 --tz "America/Chicago" \
 --session isolated \
---message "Using the 'urgent-email-summary' skill located in workspace/skills/, first execute /home/user/.openclaw/workspace/scripts/fetch_recent_gmail.sh. Then, process that output according to the SKILL.md rules and send the final summary to the telegram channel." \
+--message "Using the 'urgent-email-summary' skill located in workspace/skills/, 
+first execute /home/user/.openclaw/workspace/scripts/fetch_recent_gmail.sh. 
+Then, process that output according to the SKILL.md rules and send the final summary to the telegram channel." \
 --announce \
 --channel telegram
 --to "[Telegram ID]"
