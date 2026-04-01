@@ -315,3 +315,7 @@ Then, process that output according to the SKILL.md rules and send the final sum
 --channel telegram
 --to "[Telegram ID]"
   ```
+<p align="center">
+  <img src="docs/telegram/email-summary.png" width="260" />
+</p>
+  
