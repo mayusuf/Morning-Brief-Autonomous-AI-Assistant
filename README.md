@@ -126,22 +126,55 @@ openclaw pairing approve telegram YOUR_CODE
 
 # Urgent Email Summary
 
-1. Install google cloud SDK
+1. Install google cloud SDK. Run the following commands to install the SDK and authenticate your account:
 ``` bash
 curl https://sdk.cloud.google.com | bash
 source ~/.zshrc
 gcloud auth login
 ```
 
-2. Setup hooks
+2. Project Initialization & API Setup
+
 ```
-gcloud config set project your-project-id-12345
+# Set the active project
+gcloud config set project [PROJECT_ID]
+
+# Enable Gmail and Pub/Sub APIs
 gcloud services enable gmail.googleapis.com pubsub.googleapis.com
 ```
-3. install tailscale and connected to the device
+
+3. install tailscale and connected to the device. Networking via Tailscale
+
+```
+# Install Tailscale (Debian/Ubuntu example)
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Authenticate and connect the device
+sudo tailscale up
+```
+
 4. OAuth setup in google cloud
-5. gog authentication
-6. Webhook setup
+
+Before authenticating, you must create credentials in the Google Cloud Console:
+
+  1. Navigate to APIs & Services > OAuth consent screen and configure it.
+
+  2. Go to Credentials > Create Credentials > OAuth client ID.
+
+  3. Select Desktop App as the application type.
+
+  4. Download the client_secret.json and move it to your application's config directory.
+
+
+5. Google Authentication (GOG)
+
+Once your credentials are in place, run the authentication flow to grant the application access to your Gmail data:
+```
+# This will open a browser window for permission
+openclaw auth google login --scopes="https://www.googleapis.com/auth/gmail.readonly"
+```
+
+6. Webhook Registration
 ```
 openclaw webhooks gmail setup --account your@gmail.com
 ```
@@ -267,3 +300,16 @@ If running, your assistant is live and ready.
   * Channel: Type telegram
 
   * To: Paste your chat ID "Telegram chat ID"
+  
+  Or create cron job from command prompt
+  ```
+  openclaw cron add \
+--name "Urgent Email Summary Test" \
+--cron "*/10 * * * *" \
+--tz "America/Chicago" \
+--session isolated \
+--message "Using the 'urgent-email-summary' skill located in workspace/skills/, first execute /home/user/.openclaw/workspace/scripts/fetch_recent_gmail.sh. Then, process that output according to the SKILL.md rules and send the final summary to the telegram channel." \
+--announce \
+--channel telegram
+--to "[Telegram ID]"
+  ```
